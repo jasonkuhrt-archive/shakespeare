@@ -3,7 +3,6 @@
 
 
 
-
 # Brainstorming better i18n and copywriting
 
 I am particularly interested in creating a kick-ass i18n tool for [meteor](http://meteor.com) but these concepts are by no means intrinsically coupled to it
@@ -83,11 +82,11 @@ i18n \users-logged-in, {object:users-logged-in}
 
 # [{first-name:"Ozzu"}, {first-name:"Felini"}, {first-name:"Ridley"}]
 > Ozzu, Felini, and 1 other person are logged in
-                    ^         ^     ^
+                    ^         ^
 
 # [{first-name:"Hideo"}, {first-name:"Ozzu"}, {first-name:"Felini"}, {first-name:"Ridley"}]
 > Hideo, Ozzu, and 2 other people are logged in
-                   ^         ^     ^
+                   ^         ^
 
 # [{first-name:"Hideo"}, +11 more]
 > There are a dozen people logged in
