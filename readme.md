@@ -12,29 +12,35 @@ I am particularly interested in creating a kick-ass i18n tool for [meteor](http:
 
 #### Example file: (i.e.: `en.yaml`)
 
-```yaml
+```livescript
 
-location:        Canada
+location:        \Canada
 
-welcome-message: Welcome back {first-name}.
 
-trees-planted:   {count} tree(s) planted in {year}
+welcome-message: "Welcome back #first-name."
+
+
+trees-planted:   "#count tree(s) planted in #year"
+
+
+trees-planted-alt:
+  middleware:
+    named-numbers:
+      for: \count
+  i18n: "#count tree(s) planted in #year"
+
+
+trees-planted-alt-2:
+  i18n: "#{named-numbers(count)} tree(s) planted in #{named-numbers(year)}"
+
 
 users-logged-in:
-  0:   No one is logged in
-  1-3: There (are) {count} (people) logged in
-  4-x: {object.1.first-name}, {object.2.first-name}, and {count-rest} other(s) (are) logged in
-  12:  There are a dozen people logged in
-  x:   not needed!
-
-users-logged-in-alt:
-  object-name: people
-  0:   No one is logged in
-  1-2: There (are) {count} (people) logged in
-  3-x: {people.1.first-name}, {people.2.first-name}, and {count-rest} other (people) are logged in
-  12:  There are a dozen people logged in
-  x:   not needed!
+  0:   "No one is logged in"
+  1-3: "There (are) #count (people) logged in"
+  4-x: "#{object.1.first-name}, #{object.2.first-name}, and #{dozenify count-rest} other(s) (are) logged in"
 ```
+
+
 
 #### Using example file:
 ```
@@ -89,18 +95,21 @@ i18n \users-logged-in, {object:users-logged-in}
 > Hideo, Ozzu, and 2 other people are logged in
                    ^         ^     ^
 
-# [{first-name:"Hideo"}, +11 more]
-> There are a dozen people logged in
-```
-
-#### Particularly unresolved concepts:
-```
-# how could we achieve this return value?:
 i18n \users-logged-in, {object:[{first-name:"Hideo"}, {first-name:"Ozzu"}, +12 more]}
 > Hideo, Ozzu, and a dozen other people are logged in
                    ^   ^
 
-# middleware?
+i18n \users-logged-in, {object:[{first-name:"Hideo"}, {first-name:"Ozzu"}, +24 more]}
+> Hideo, Ozzu, and 2 dozen other people are logged in
+                   ^   ^
+
+i18n \users-logged-in, {object:[{first-name:"Hideo"}, {first-name:"Ozzu"}, +25 more]}
+> Hideo, Ozzu, and 25 other people are logged in
+                   ^
+
+
+
+# middleware
 
 i18n \trees-planted, {object:[{...}, +42 more], year:2009}, {named-numbers:on}
 > forty-two trees planted in two-thousand-and-nine                         ^
@@ -111,6 +120,16 @@ i18n \trees-planted, {object:[{...}, +42 more], year:2009}, {named-numbers:[\cou
       ^
 
 
+```
+
+### Unresolved ideas
+```
+# IF functions to limit function application only if preceeding one was applied too?
+#
+# in the below example we are saying we only want to name the numbers (one, two, etc.)
+# if the dozenify function was applied
+# i.e.... two dozen channels open --vs-- 25 channels open
+foo: #{named-numbers IF dozenify count} channel(s) open.
 ```
 
 
