@@ -2,7 +2,6 @@
 
 
 
-
 # Brainstorming better i18n and copywriting
 
 I am particularly interested in creating a kick-ass i18n tool for [meteor](http://meteor.com) but these concepts are by no means intrinsically coupled to it
@@ -29,8 +28,7 @@ trees-planted-alt:
   i18n: "#count tree(s) planted in #year"
 
 
-trees-planted-alt-2:
-  i18n: "#{named-numbers(count)} tree(s) planted in #{named-numbers(year)}"
+trees-planted-alt-2: "#{named-numbers(count)} tree(s) planted in #{named-numbers(year)}"
 
 
 users-logged-in:
